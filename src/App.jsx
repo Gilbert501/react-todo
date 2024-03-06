@@ -1,11 +1,6 @@
-
 import React, {useState} from 'react';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
-function App() {
-  const [count, setCount] = useState(0)
-
-  import React from'react';
 
 const todoList = [
   {id: 1, title:'Walk the dog'}, 
@@ -14,19 +9,19 @@ const todoList = [
 ];
 
 function App() {
+  const [newTodo, setNewTodo] = React.useState('');
+  const handleAddTodo = (todoTitle) => {
+    setNewTodo(todoTitle);
+  }
+  
   return (
     <div>
       <h1>Todo List</h1>
       <TodoList/>
-      <AddTodoForm/>
-      </div>
-      <ul>
-        {todoList.map(todoItem => (
-                <li key ={todoItem.id}>{todoItem.title}</li>
-
-        ))}
-       </ul>
-      </div>
+      <AddTodoForm onAddTodo={handleAddTodo}/>
+      <p>{newTodo}</p>
+      
+    </div>
 
   );
 }
