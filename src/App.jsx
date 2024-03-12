@@ -2,28 +2,26 @@ import React, {useState} from 'react';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
-const todoList = [
-  {id: 1, title:'Walk the dog'}, 
-  {id:2, title:'Go to the grocery store'}, 
-  {id:3, title:'Take out the garbage'}
-];
-
 function App() {
-  const [newTodo, setNewTodo] = React.useState('');
-  const handleAddTodo = (todoTitle) => {
-    setNewTodo(todoTitle);
-  }
-  
-  return (
+  const [todoList, setTodoList] = useState([]);
+   
+  const addTodo = (newTodoItem) => {
+    const newTodo = {
+     title: newTodoItem.title,
+     id: Date.now()
+}
+
+setTodoList([...todoList, newTodo]);
+}
+
+return (
     <div>
       <h1>Todo List</h1>
-      <TodoList/>
-      <AddTodoForm onAddTodo={handleAddTodo}/>
-      <p>{newTodo}</p>
-      
+      <AddTodoForm onAddTodo={addTodo}/>
+      <TodoList todoList={todoList}/>
     </div>
 
   );
-}
+  }
 
 export default App
