@@ -59,7 +59,7 @@ import {useState, useEffect} from 'react';
  
  return (
      <>
-
+       
        <h1>Todo List</h1>
       
        <AddTodoForm onAddTodo={addTodo}/>
@@ -67,8 +67,7 @@ import {useState, useEffect} from 'react';
        <TodoList todoList={todoList}/>
        }
      </>
- 
-   );
+  );
    }
  
   export default App;
