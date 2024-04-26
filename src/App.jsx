@@ -8,7 +8,6 @@ import {useState, useEffect} from 'react';
   
     const fetchData = async () => {
 
-      try {
         const options = {
           method: 'GET',
        headers: {
@@ -18,24 +17,20 @@ import {useState, useEffect} from 'react';
 
       const url =`https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
       console.log("Fetching data from:", url);
-      const response = await fetch(url, options);            
-
-      if(!response.ok) {
+      try{
+        const response = await fetch(url, options);            
+       if(!response.ok) {
         throw new Error(`Failed to fetch data: ${response.status}`);
       }
       
       const data = await response.json();
       console.log(data);
 
-      const modifiedData = data.records.map(d => ({
-          id: d.id,
-          title: d.fields.title
-        }));
-       
-        setTodoList(modifiedData);
+     setTodoList(data.records);
         setIsLoading(false);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
+    }finally{
       setIsLoading(false);
     }
   }
@@ -53,9 +48,7 @@ import {useState, useEffect} from 'react';
   }, [todoList, isLoading]);
 
 
-  
-     
-   const addTodo = (newTodoItem) => {
+  const addTodo = (newTodoItem) => {
      const newTodo = {
       title: newTodoItem.title,
       id: Date.now()
