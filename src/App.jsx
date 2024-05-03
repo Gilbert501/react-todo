@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react';
  import TodoList from './TodoList';
  import AddTodoForm from './AddTodoForm';
+ import {BrowserRouter, Routes, Route} from 'react-router-dom';
  
-  const  App = () => {
+ 
+ const  App = () => {
     const [todoList, setTodoList] = useState(([]));
     const[isLoading, setIsLoading] = useState(true); 
   
@@ -43,7 +45,7 @@ import {useState, useEffect} from 'react';
     fetchData ();
     }, []);
 
-    const postTodo = async newTodoItem => {
+    const postTodo = async (newTodoItem) => {
       const options = {
         method: 'POST',
      headers: {
@@ -61,12 +63,12 @@ import {useState, useEffect} from 'react';
     
     try{
       const response = await fetch(url, options);            
-      const responseData = await response.json;
+     
       if(!response.ok) {
          const message = `Failed to add todo: ${response.status}`;
          throw new Error(message);
     }
-    
+    const responseData = await response.json ();
     const addedTodo = responseData;
         setTodoList([...todoList, {
           id: addedTodo.id,
@@ -81,8 +83,12 @@ import {useState, useEffect} from 'react';
       title: newTodoItem.title,
     id: Date.now()
  }
+ if (todoList.length === 0) {
+  setTodoList([newTodo]);
+ } else {
  
 setTodoList([...todoList, newTodo]);
+}
  
 }
 
@@ -94,16 +100,27 @@ useEffect (() => {
 }, [todoList, isLoading]);
  
 return (
-     <>
-       <h1>Todo List</h1>
+  <BrowserRouter>
+    <Routes>
+      <Route path ='/'
+        exact
+        element = {
+        <>
+         <h1>Todo List</h1>
+         
       
-       <AddTodoForm onAddTodo={addTodo}/>
-       {isLoading ? <p>Loading...</p> : 
-       <TodoList todoList={todoList}/>
-       }
-     </>
-  );
-   }
+         <AddTodoForm onAddTodo={addTodo} postTodo={postTodo}/>
+         {isLoading ? <p>Loading...</p> : 
+         <TodoList todoList={todoList}/>
+         }
+      </>}
+      />
+    <Route path='/new' element={<h1>New Todo List</h1>} />
+    </Routes>
+  </BrowserRouter>
+);
+
+}
  
   export default App;
  
