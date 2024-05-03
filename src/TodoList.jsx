@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ToDoListItem from './ToDoListItem';
 
 const TodoList = ({todoList}) => {
