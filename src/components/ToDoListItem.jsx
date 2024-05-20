@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import style from './TodoListItem.module.css'
 
 const ToDoListItem = ({id, title}) => {
@@ -12,4 +13,8 @@ const ToDoListItem = ({id, title}) => {
     );
 };
 
+ToDoListItem.propTypes = {
+  id:PropTypes.string,
+  title:PropTypes.string
+}
 export default ToDoListItem;
