@@ -38,7 +38,7 @@ const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
         </InputWithLabel>
     
           <button 
-            type="submit" 
+            type="button" 
             onClick={handleAddTodo}
             className={style.button}
           >
