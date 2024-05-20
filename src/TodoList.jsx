@@ -1,4 +1,3 @@
-
 import ToDoListItem from './ToDoListItem';
 
 const TodoList = ({todoList}) => {

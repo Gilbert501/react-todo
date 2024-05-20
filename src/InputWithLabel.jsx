@@ -1,8 +1,8 @@
-
+import style from './App.module.css';
 const InputWithLabel = ({id,value,onChange,children}) => {
     return (
         <>
-            <label htmlFor={id}>{children}</label>
+            <label htmlFor={id} className={style.label}>{children}</label>
             <input 
               type='text'
               name="title"

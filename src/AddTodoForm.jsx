@@ -1,7 +1,9 @@
 import {useState} from 'react';
 import InputWithLabel from './InputWithLabel';
+import style from './App.module.css';
+import addIconUrl from './addIcon.svg?asset';
 
-const AddTodoForm = ({onAddTodo}) =>{
+const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
   const[todoTitle, setTodoTitle] = useState('');
   
   const handleTitleChange = (event) => {
@@ -20,17 +22,38 @@ const AddTodoForm = ({onAddTodo}) =>{
     onAddTodo(newTodo);
     setTodoTitle('');
   }
-    return (
-        <form> 
+
+  const handleClearTodo = () => {
+    onClearTodo();
+  }
+    
+  return (
+        <form className={style.form}> 
         <InputWithLabel 
           id="title"  
           value={todoTitle} 
           onChange={handleTitleChange}
-          >
-          <strong>Title:</strong>
+        >
+          <strong>Title</strong>
         </InputWithLabel>
     
-          <button type="submit" onClick={handleAddTodo}>Add</button>
+          <button 
+            type="submit" 
+            onClick={handleAddTodo}
+            className={style.button}
+          >
+               <img 
+                 src ={addIconUrl} 
+                 className={style.iconImg}
+                 alt='Add Icon'
+                 /> 
+          </button>
+          <button
+          type='button'
+          onClick={handleClearTodo}
+          className={style.buttonClear}>
+            Clear
+            </button>
         </form>
 
     );

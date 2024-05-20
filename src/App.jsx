@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
  import TodoList from './TodoList';
  import AddTodoForm from './AddTodoForm';
  import {BrowserRouter, Routes, Route} from 'react-router-dom';
- 
+ import style from './App.module.css';
  
  const  App = () => {
     const [todoList, setTodoList] = useState(([]));
@@ -98,26 +98,36 @@ useEffect (() => {
     JSON.stringify(todoList));
   }
 }, [todoList, isLoading]);
- 
+
+const clearTodo = () => {
+  setTodoList([]);
+}
+
 return (
+  <div className={style.container}>
   <BrowserRouter>
-    <Routes>
+  <Routes>
       <Route path ='/'
         exact
         element = {
         <>
-         <h1>Todo List</h1>
+         <h1 className={style.headlinePrimary}>To Do List</h1>
          
       
-         <AddTodoForm onAddTodo={addTodo} postTodo={postTodo}/>
-         {isLoading ? <p>Loading...</p> : 
-         <TodoList todoList={todoList}/>
+         <AddTodoForm 
+           onAddTodo={addTodo} 
+           postTodo={postTodo}
+           onClearTodo={clearTodo}
+         />
+          {isLoading ? <p>Loading...</p> : 
+           <TodoList todoList={todoList}/>
          }
       </>}
       />
     <Route path='/new' element={<h1>New Todo List</h1>} />
     </Routes>
   </BrowserRouter>
+  </div>
 );
 
 }
