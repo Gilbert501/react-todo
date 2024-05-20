@@ -1,4 +1,5 @@
 import ToDoListItem from './ToDoListItem';
+import PropTypes from 'prop-types';
 
 const TodoList = ({todoList}) => {
 
@@ -11,4 +12,7 @@ const TodoList = ({todoList}) => {
       );
     };
 
+TodoList.propTypes = {
+  todoList:PropTypes.array
+}
     export default TodoList;
