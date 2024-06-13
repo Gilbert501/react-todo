@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react';
  import style from './components/App.module.css';
  
  const  App = () => {
-    const [todoList, setTodoList] = useState(([]));
+    const [todoList, setTodoList] = useState([]);
     const[isLoading, setIsLoading] = useState(true); 
   
     const fetchData = async () => {
@@ -99,9 +99,12 @@ useEffect (() => {
   }
 }, [todoList, isLoading]);
 
-const clearTodo = () => {
-  setTodoList([]);
-}
+const removeTodo = (idToRemove) => {
+  setTodoList(todoList.filter(todo => todo.id !== idToRemove));
+};
+
+
+
 
 return (
   <div className={style.container}>
@@ -117,10 +120,13 @@ return (
          <AddTodoForm 
            onAddTodo={addTodo} 
            postTodo={postTodo}
-           onClearTodo={clearTodo}
+          
          />
-          {isLoading ? <p>Loading...</p> : 
-           <TodoList todoList={todoList}/>
+          {isLoading ? <p>Work in progress...</p> : 
+           <TodoList 
+             todoList={todoList}
+             removeTodo={removeTodo}
+           />
          }
       </>}
       />

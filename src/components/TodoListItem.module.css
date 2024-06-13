@@ -1,5 +1,20 @@
 .ListItem {
     color: orange;
-    list-style: none;
+    list-style:  none;
     text-align: left;
+    padding:5px;
+    
+} 
+
+.removeBtn {
+    background-color:grey;
+    color:red ;
+    border:1px;
+    border-radius: 5px;
+    margin-left: 5px;
+
+}
+
+.removeBtn:hover {
+    background-color:white;
 }
