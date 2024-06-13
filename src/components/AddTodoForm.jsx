@@ -4,7 +4,7 @@ import style from './App.module.css';
 import addIconUrl from '../addIcon.svg?asset';
 import PropTypes from 'prop-types';
 
-const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
+const AddTodoForm = ({onAddTodo, postTodo}) => {
   const[todoTitle, setTodoTitle] = useState('');
   
   const handleTitleChange = (event) => {
@@ -12,7 +12,7 @@ const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
    setTodoTitle(newTodoTitle);
   }
    
-  const handleAddTodo = (event) => {
+  const handleAddTodo = async (event) => {
     event.preventDefault();
     if (!todoTitle.trim()) return; 
     
@@ -21,13 +21,10 @@ const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
       id: Date.now()
 }
     onAddTodo(newTodo);
+    await postTodo(newTodo)
     setTodoTitle('');
   }
 
-  const handleClearTodo = () => {
-    onClearTodo();
-  }
-    
   return (
         <form className={style.form}> 
         <InputWithLabel 
@@ -49,12 +46,7 @@ const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
                  alt='Add Icon'
                  /> 
           </button>
-          <button
-          type='button'
-          onClick={handleClearTodo}
-          className={style.buttonClear}>
-            Clear
-            </button>
+      
         </form>
 
     );
@@ -62,8 +54,8 @@ const AddTodoForm = ({onAddTodo, onClearTodo}) =>{
 
  AddTodoForm.propTypes = {
   
-  onAddTodo:PropTypes.func,
-  onClearTodo:PropTypes.func
+  onAddTodo:PropTypes.func.isRequired,
+  postTodo:PropTypes.func.isRequired
 
  
 }
