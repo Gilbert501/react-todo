@@ -47,14 +47,23 @@
 }
 
 .button { 
-   padding: 10px;
+    padding: 10px;
     background-color:grey;
     border-radius: 5px;
     font-size:1rem;
     cursor: pointer;
   } 
 
-  .button:hover, .button:focus {
+  .toggleBtn {
+    display: flex;
+    color:blue;
+    background-color: grey;
+    gap: 10px; 
+    margin-top:10px;
+    cursor: pointer;
+  }
+
+  .button:hover, .button:focus, .toggleBtn:hover, .toggleBtn:focus {
     background-color:green;
   }
   
